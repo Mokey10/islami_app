@@ -19,4 +19,6 @@ abstract class Assets {
   static const String vectorLeftIcn = 'assets/icons/vector_left_icn.png';
   static const String vectorRightIcn = 'assets/icons/vector_right_icn.png';
   static const String mosqueImg = 'assets/images/mosque_img.png';
+  static const String hadithCardBackground =
+      'assets/images/hadith_card_background_img.png';
 }
