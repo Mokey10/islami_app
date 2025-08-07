@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/models/sura_data_model.dart';
-import 'package:islami_app/modules/layout/quran/quran_details_view.dart';
 
 import '../../../../core/constants/assets.dart';
 
 class SuraListItem extends StatelessWidget {
   final SuraDataModel suraDataModel;
+  final VoidCallback onSuraTab;
 
-  const SuraListItem({super.key, required this.suraDataModel});
+  const SuraListItem(
+      {super.key, required this.suraDataModel, required this.onSuraTab});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        ///navigate to sura details view
-
-        Navigator.pushNamed(
-          context,
-          QuranDetailsView.routeName,
-          arguments: suraDataModel,
-        );
-      },
+      onTap: onSuraTab,
       child: Row(
         children: [
           Container(

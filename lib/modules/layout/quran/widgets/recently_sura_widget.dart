@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../../../models/sura_data_model.dart';
+import '../quran_details_view.dart';
 import 'recently_item_widget.dart';
 
 class RecentlySuraWidget extends StatelessWidget {
-  const RecentlySuraWidget({super.key});
+  const RecentlySuraWidget({super.key, required this.suraDataModel});
+
+  final List<SuraDataModel> suraDataModel;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +28,23 @@ class RecentlySuraWidget extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 20),
             itemBuilder: (BuildContext context, int index) {
-              return RecentlyItemWidget();
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    QuranDetailsView.routeName,
+                    arguments: suraDataModel[index],
+                  );
+                },
+                child: RecentlyItemWidget(
+                  suraDataModel: suraDataModel[index],
+                ),
+              );
             },
             separatorBuilder: (BuildContext context, int index) {
               return SizedBox(width: 10);
             },
-            itemCount: 4,
+            itemCount: suraDataModel.length,
           ),
         ),
       ],
