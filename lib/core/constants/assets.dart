@@ -12,6 +12,9 @@ abstract class Assets {
   static const String radioBackground = 'assets/images/radioBackground.png';
   static const String sebhaBackground = 'assets/images/sebhaBackground.png';
   static const String timeBackground = 'assets/images/timeBackground.png';
+  static const String hadithLeftCorner = 'assets/images/hadith_left_corner.png';
+  static const String hadithRightCorner =
+      'assets/images/hadith_right_corner.png';
 
   static const String headerLogo = 'assets/images/header_logo.png';
   static const String cardLogo = 'assets/images/Rectangle_card.png';
