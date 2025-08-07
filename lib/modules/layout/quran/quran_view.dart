@@ -24,6 +24,7 @@ class _QuranViewState extends State<QuranView> {
     loadRecentData();
   }
 
+  String searchQuery = '';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,6 +45,11 @@ class _QuranViewState extends State<QuranView> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextFormField(
+                onChanged: (value) {
+                  searchQuery = value;
+                  search();
+                  setState(() {});
+                },
                 cursorColor: ColorsPallete.primaryColor,
                 decoration: InputDecoration(
                   hintText: 'Sura Name',
@@ -70,14 +76,34 @@ class _QuranViewState extends State<QuranView> {
                 ),
               ),
             ),
+            Visibility(
+              visible: searchQuery.isEmpty,
+              replacement: SuraListWidget(
+                onSuraTap: onSuraTap,
+                suraDataModel: searchSuraList,
+              ),
+              child: Column(
+                children: [
+                  recentSuraList.isNotEmpty
+                      ? RecentlySuraWidget(suraDataModel: recentSuraList)
+                      : Center(
+                          child: Text(
+                            'No Recent Sura',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: ColorsPallete.primaryColor,
+                            ),
+                          ),
+                        ),
+                  SizedBox(height: 10),
+                  SuraListWidget(
+                    onSuraTap: onSuraTap,
+                    suraDataModel: Constants.suraDataLists,
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: 20),
-            recentSuraList.isNotEmpty
-                ? RecentlySuraWidget(suraDataModel: recentSuraList)
-                : Center(child: Text('No Recent Sura', style: TextStyle(
-                fontSize: 16, color: ColorsPallete.primaryColor
-            ),)),
-            SizedBox(height: 10),
-            SuraListWidget(onSuraTap: onSuraTap),
           ],
         ),
       ),
@@ -111,9 +137,7 @@ class _QuranViewState extends State<QuranView> {
       recentSuraIndexList,
     );
     loadRecentData();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   loadRecentData() {
@@ -124,6 +148,18 @@ class _QuranViewState extends State<QuranView> {
     for (String index in recentSuraIndexList) {
       int indexInt = int.parse(index);
       recentSuraList.add(Constants.suraDataLists[indexInt]);
+    }
+  }
+
+  List<SuraDataModel> searchSuraList = [];
+
+  void search() {
+    searchSuraList = [];
+    for (var sura in Constants.suraDataLists) {
+      if (sura.suraNameEn.toLowerCase().contains(searchQuery.toLowerCase()) ||
+          sura.suraNameAr.toLowerCase().contains(searchQuery.toLowerCase())) {
+        searchSuraList.add(sura);
+      }
     }
   }
 }
