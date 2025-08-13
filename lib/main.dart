@@ -4,16 +4,20 @@ import 'package:islami_app/core/services/local_storage_services.dart';
 import 'package:islami_app/modules/layout/quran/quran_details_view.dart';
 
 import 'modules/layout/layoutView.dart';
+import 'modules/onBoarding/widgets/on_boarding_screen.dart';
 import 'modules/splash/splash_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorageServices.init();
-  runApp(const MyApp());
+  var isFirstTime = LocalStorageServices.getBool("firstTime") ?? true;
+  runApp(MyApp(isFirstTime: isFirstTime,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.isFirstTime});
+
+  final bool isFirstTime;
 
   // This widgets is the root of your application.
   @override
@@ -21,12 +25,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeManager.themeData,
-      initialRoute: SplashView.routeName,
+      initialRoute: isFirstTime ? OnBoardingScreen.routeName : LayoutView
+          .routeName,
       routes: {
         SplashView.routeName: (BuildContext context) => const SplashView(),
         LayoutView.routeName: (BuildContext context) => const LayoutView(),
         QuranDetailsView.routeName: (BuildContext context) =>
             QuranDetailsView(),
+        OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
       },
     );
   }

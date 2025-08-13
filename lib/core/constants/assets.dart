@@ -24,4 +24,12 @@ abstract class Assets {
   static const String mosqueImg = 'assets/images/mosque_img.png';
   static const String hadithCardBackground =
       'assets/images/hadith_card_background_img.png';
+  static const String sebhaHead = 'assets/images/sebha_head.png';
+  static const String sebhaBody = 'assets/images/sebha_body.png';
+
+  static const String onBoarding1Img = 'assets/images/onBoarding1.png';
+  static const String onBoarding2Img = 'assets/images/onBoarding2.png';
+  static const String onBoarding3Img = 'assets/images/onBoarding3.png';
+  static const String onBoarding4Img = 'assets/images/onBoarding4.png';
+  static const String onBoarding5Img = 'assets/images/onBoarding5.png';
 }
